@@ -4,8 +4,7 @@ from langchain.document_loaders import PyPDFLoader
 from langchain.chains.question_answering import load_qa_chain
 from langchain.llms import OpenAI
 import os
-os.environ["OPENAI_API_KEY"] = "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"
-#os.environ["OPENAI_API_KEY"]
+os.environ["OPENAI_API_KEY"]
 chain = load_qa_chain(llm=OpenAI(), chain_type="map_reduce")
 
 app = FastAPI()
