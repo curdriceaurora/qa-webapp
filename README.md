@@ -1,6 +1,6 @@
 # qa-webapp
 a front end that answer you questions about a pdf formated book. 
-#### be midful that it's a relatively big pdf file and can add up to your openai billing
+#### Please be mindful that there are grammar errors in this sentence. Also, note that it's a relatively large PDF file, and downloading it may contribute to your OpenAI billing.
 ## how to run it
 ```
 git clone https://github.com/EmanuelRiquelme/qa-webapp
