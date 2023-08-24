@@ -1,6 +1,6 @@
 # qa-webapp
 a front end that answer you questions about a pdf formated book. 
-
+#### be midful that it's a relatively big pdf file and can add up to your openai billing
 ## how to run it
 ```
 git clone https://github.com/EmanuelRiquelme/qa-webapp
