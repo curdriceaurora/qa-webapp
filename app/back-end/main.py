@@ -3,9 +3,13 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.llms import GooglePalm
 
 import os
+import sys  # Import sys for debugging
 import google.generativeai as genai
-from data_loader import load_data
-import pypdfium2 as pdfium 
+
+# Use a relative import assuming data_loader.py is in the same directory
+from .data_loader import load_data  
+
+import pypdfium2 as pdfium
 
 # Constants
 API_KEY_ENV_VAR = 'GEMINI_API_KEY'
@@ -24,6 +28,9 @@ app = FastAPI()
 
 # Global variable to store the loaded FAQ data
 faq = None
+
+# Debugging: Print the module search path
+print(sys.path)
 
 @app.post("/upload")
 async def upload_and_process(file: UploadFile = File(...)):
