@@ -1,15 +1,22 @@
+import warnings
+from langchain.callbacks.base import CallbackManager
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+
+# Filter out LangChainDeprecationWarning (if needed)
+warnings.filterwarnings("ignore", category=UserWarning, module="langchain", append=True)
+
 from fastapi import FastAPI, Query, UploadFile, File
 from langchain.chains.question_answering import load_qa_chain
-from langchain.llms import GooglePalm
+
+# Import from langchain-google-genai 
+from langchain_google_genai import ChatGoogleGenerativeAI 
 
 import os
-import sys  # Import sys for debugging
-import google.generativeai as genai
+import sys 
+import pypdfium2 as pdfium
 
 # Use a relative import assuming data_loader.py is in the same directory
 from .data_loader import load_data  
-
-import pypdfium2 as pdfium
 
 # Constants
 API_KEY_ENV_VAR = 'GEMINI_API_KEY'
@@ -17,11 +24,9 @@ API_KEY_ENV_VAR = 'GEMINI_API_KEY'
 # Get the API key from the environment variable
 api_key = os.environ.get(API_KEY_ENV_VAR)
 
-# Set your Google Gemini API key
-genai.configure(api_key=api_key)
-
-# Assuming GooglePalm class is available in langchain for Gemini
-llm = GooglePalm(temperature=0, max_output_tokens=256)
+# Initialize the ChatGoogleGenerativeAI instance with CallbackManager
+callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
+llm = ChatGoogleGenerativeAI(google_api_key=api_key, model="gemini-pro", callback_manager=callback_manager)
 chain = load_qa_chain(llm=llm, chain_type="map_reduce")
 
 app = FastAPI()

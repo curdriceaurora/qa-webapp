@@ -8,15 +8,15 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install dependencies
-RUN pip install --upgrade pip
+RUN /usr/local/bin/python -m pip install --upgrade pip 
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the application code into the container
 COPY app/ app/
 
-#api key
+# API key 
 ARG API_KEY_SECRET
-ENV OPENAI_API_KEY=$API_KEY_SECRET
+ENV GEMINI_API_KEY=$API_KEY_SECRET 
 
 # Expose ports for FastAPI and Streamlit
 EXPOSE 8000 8501
